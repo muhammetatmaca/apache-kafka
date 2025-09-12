@@ -8,6 +8,6 @@ Apache Kafka örnekleri ve demo projeleri. Kafka producer, consumer ve stream i�
 - Kafka **Producer** ve **Consumer** örnekleri
 - Basit mesaj akışı ve logging demo
 - Farklı topic ve partition kullanım örnekleri
-- .NET ve/veya Java ile entegrasyon örnekleri (opsiyonel)
+- .NET ve/veya Java ile entegrasyon örnekleri
 
 ---
