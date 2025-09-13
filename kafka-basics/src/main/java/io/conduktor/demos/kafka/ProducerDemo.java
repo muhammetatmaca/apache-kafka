@@ -1,11 +1,9 @@
 package io.conduktor.demos.kafka;
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Properties;
 
 public class ProducerDemo {
@@ -16,15 +14,19 @@ public class ProducerDemo {
 
         // create Producer Properties
         Properties properties = new Properties();
-
-        // connect to Localhost
+/*
+// connect to Localhost
 //        properties.setProperty("bootstrap.servers", "127.0.0.1:9092");
 
-        // connect to Conduktor Playground
-        properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
+// connect to Conduktor Playground
+properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
         properties.setProperty("security.protocol", "SASL_SSL");
         properties.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"your-username\" password=\"your-password\";");
         properties.setProperty("sasl.mechanism", "PLAIN");
+*/
+
+        // connect to Localhost Kafka
+        properties.setProperty("bootstrap.servers", "localhost:19092");
 
         // set producer properties
         properties.setProperty("key.serializer", StringSerializer.class.getName());
@@ -35,7 +37,7 @@ public class ProducerDemo {
 
         // create a Producer Record
         ProducerRecord<String, String> producerRecord =
-                new ProducerRecord<>("demo_java", "hello world");
+                new ProducerRecord<>("third_topic", "topice ulaştımı acaba ?");
 
         // send data
         producer.send(producerRecord);
