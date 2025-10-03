@@ -16,6 +16,7 @@ public class WikimediaChangesProducer {
     public static void main(String[] args) throws InterruptedException {
 
         // create Producer Properties
+        // create Producer Properties
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -34,7 +35,7 @@ public class WikimediaChangesProducer {
         BackgroundEventSource.Builder builder = new BackgroundEventSource.Builder(eventHandler, eventSourceBuilder);
         BackgroundEventSource eventSource = builder.build();
 
-
+    
         // start the producer in another thread
         eventSource.start();
 

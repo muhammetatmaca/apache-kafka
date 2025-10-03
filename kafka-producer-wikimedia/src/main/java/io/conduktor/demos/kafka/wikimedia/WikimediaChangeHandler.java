@@ -45,4 +45,7 @@ public class WikimediaChangeHandler implements BackgroundEventHandler {
     public void onError(Throwable t) {
         log.error("Error in Stream Reading", t);
     }
+
+    
+
 }
