@@ -29,7 +29,7 @@ public class WikimediaChangesProducer {
         BackgroundEventHandler eventHandler = new WikimediaChangeHandler(producer, topic);
         String url = "https://stream.wikimedia.org/v2/stream/recentchange";
 
-        // Önce EventSource.Builder oluştur, sonra onu BackgroundEventSource.Builder'a ver
+        // Önce  EventSource.Builder  oluştur, sonra onu BackgroundEventSource.Builder'a ver
         EventSource.Builder eventSourceBuilder = new EventSource.Builder(URI.create(url));
         BackgroundEventSource.Builder builder = new BackgroundEventSource.Builder(eventHandler, eventSourceBuilder);
         BackgroundEventSource eventSource = builder.build();
