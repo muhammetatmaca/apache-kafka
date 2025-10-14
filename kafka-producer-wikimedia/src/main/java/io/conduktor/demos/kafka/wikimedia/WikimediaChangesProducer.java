@@ -1,5 +1,7 @@
 package io.conduktor.demos.kafka.wikimedia;
 
+// Gerekli import'ları ekleyin
+import com.launchdarkly.eventsource.ConnectStrategy;
 import com.launchdarkly.eventsource.EventSource;
 import com.launchdarkly.eventsource.background.BackgroundEventHandler;
 import com.launchdarkly.eventsource.background.BackgroundEventSource;
@@ -15,32 +17,33 @@ public class WikimediaChangesProducer {
 
     public static void main(String[] args) throws InterruptedException {
 
-        // create Producer Properties
-        // create Producer Properties
+        // Kafka Producer ayarları
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         String topic = "wikimedia.recentchange";
-
-        BackgroundEventHandler eventHandler = new WikimediaChangeHandler(producer, topic);
         String url = "https://stream.wikimedia.org/v2/stream/recentchange";
 
-        // Önce  EventSource.Builder  oluştur, sonra onu BackgroundEventSource.Builder'a ver
-        EventSource.Builder eventSourceBuilder = new EventSource.Builder(URI.create(url));
+        BackgroundEventHandler eventHandler = new WikimediaChangeHandler(producer, topic);
+
+        // ----> DEĞİŞİKLİK BURADA <----
+        // Önce User-Agent başlığı ile bağlantı stratejisi oluşturulur.
+        // Sonra bu strateji EventSource.Builder'a verilir.
+        EventSource.Builder eventSourceBuilder = new EventSource.Builder(
+                ConnectStrategy.http(URI.create(url))
+                        .header("User-Agent", "MyKafkaWikimediaProducer/1.0")
+        );
+
         BackgroundEventSource.Builder builder = new BackgroundEventSource.Builder(eventHandler, eventSourceBuilder);
         BackgroundEventSource eventSource = builder.build();
 
-    
-        // start the producer in another thread
+        // Producer'ı başlat
         eventSource.start();
 
-        // we produce for 10 minutes and block the program until then
+        // 10 dakika bekle
         TimeUnit.MINUTES.sleep(10);
-
-
     }
 }
