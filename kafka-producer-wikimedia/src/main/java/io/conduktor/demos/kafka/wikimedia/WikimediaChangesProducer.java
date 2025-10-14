@@ -19,7 +19,8 @@ public class WikimediaChangesProducer {
 
         // Kafka Producer ayarları
         Properties properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        // ----> DEĞİŞİKLİK BURADA YAPILDI <----
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.23.246.155:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
@@ -29,7 +30,6 @@ public class WikimediaChangesProducer {
 
         BackgroundEventHandler eventHandler = new WikimediaChangeHandler(producer, topic);
 
-        // ----> DEĞİŞİKLİK BURADA <----
         // Önce User-Agent başlığı ile bağlantı stratejisi oluşturulur.
         // Sonra bu strateji EventSource.Builder'a verilir.
         EventSource.Builder eventSourceBuilder = new EventSource.Builder(

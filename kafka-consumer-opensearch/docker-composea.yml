@@ -18,3 +18,10 @@ services:
 
 volumes:
   kafka_data:
+
+    #ilk olarak öbür docker compase dosyasını çalıştırman lazım
+    #bin/kafka-server-start.sh config/server.properties  kafka çalışıtırma wsl ile
+    # eğer çalışmassa bin/kafka-storage.sh random-uuid alman lazım
+    #bin/kafka-storage.sh format -t d3hCdN_QTdCGtbOaSgALCw -c config/server.properties sonrasında ilk satırdakini baştan çalıştır.
+    # sonrasında wikimedia change producer çalıştır
+    #sonrasında opensearch bağlayabilirsin.
